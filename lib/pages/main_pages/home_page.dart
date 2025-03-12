@@ -1,12 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:zenflow/models/functions_model.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
 import 'package:zenflow/providers/filter_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  // Method to open the bottom sheet
+  void openBottomSheet(
+    BuildContext context,
+    final title,
+    final duration,
+    final description,
+    final category,
+    final videoUrl,
+  ) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(fontSize: 20)),
+                const SizedBox(height: 10),
+                Text(category, style: const TextStyle(fontSize: 15)),
+                const SizedBox(height: 10),
+                Text(description, style: const TextStyle(fontSize: 15)),
+                const SizedBox(height: 20),
+                Text(
+                  videoUrl.isNotEmpty ? videoUrl : 'No video available',
+                  style: const TextStyle(fontSize: 15, color: Colors.blue),
+                ),
+                Text('$duration min', style: const TextStyle(fontSize: 15)),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        GoRouter.of(context).push(
+                          '/functions',
+                          // Passing the data to the next page
+                          extra: FunctionsData(
+                            category,
+                            title: title,
+                            duration: duration,
+                            description: description,
+                            url: videoUrl,
+                          ),
+                        );
+                      },
+                      child: const Text("Start"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Close"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +156,21 @@ class HomePage extends StatelessWidget {
                             mainAxisSpacing: 10,
                             children:
                                 completeData.map((data) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                                  return GestureDetector(
+                                    onTap: () {
+                                      openBottomSheet(
+                                        context,
+                                        data.name,
+                                        data.duration,
+                                        data.description,
+                                        data.category,
+                                        data.videoUrl ?? '',
+                                      );
+                                    },
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color:
-                                            //if data is of type MindfulnessExercise return Colors.blue else if data is of type SleepContent return Colors.green else return Colors.red
                                             data is MindfulnessExercise
                                                 ? Colors.blue.shade100
                                                     .withOpacity(0.3)
@@ -114,25 +187,22 @@ class HomePage extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              data.category ?? 'Unknown',
+                                              data.category,
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20,
                                               ),
                                             ),
                                             Text(
-                                              data.duration.toString() +
-                                                      ' min' ??
-                                                  'Unknown',
+                                              '${data.duration} min',
                                               style: const TextStyle(
                                                 color: Colors.black38,
                                                 fontSize: 15,
                                               ),
                                             ),
-                                            Text(data.name ?? 'Unknown'),
+                                            Text(data.name),
                                             Text(
-                                              data.description ??
-                                                  'No description',
+                                              data.description,
                                               maxLines:
                                                   (data.description.length / 2)
                                                       .toInt(),
