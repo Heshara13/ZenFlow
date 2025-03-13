@@ -20,6 +20,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 5,
         instructionsUrl: "https://example.com/instructions/mindful-breathing",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Daily Practice",
@@ -34,6 +35,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 10,
         instructionsUrl: "https://example.com/instructions/gratitude-journal",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Stress Relief",
@@ -48,6 +50,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 15,
         instructionsUrl: "https://example.com/instructions/body-scan",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Focus",
@@ -62,6 +65,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 10,
         instructionsUrl: "https://example.com/instructions/single-tasking",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Anxiety Relief",
@@ -78,6 +82,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 10,
         instructionsUrl: "https://example.com/instructions/grounding-exercise",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Mindfulness",
@@ -92,6 +97,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 15,
         instructionsUrl: "https://example.com/instructions/mindful-walking",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Self-Acceptance",
@@ -106,6 +112,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 10,
         instructionsUrl: "https://example.com/instructions/loving-kindness",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Relaxation",
@@ -121,6 +128,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         duration: 15,
         instructionsUrl:
             "https://example.com/instructions/progressive-muscle-relaxation",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Energy",
@@ -135,6 +143,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 5,
         instructionsUrl: "https://example.com/instructions/morning-stretch",
+        imagePath: "assets/images/mindfull.png",
       ),
       MindfulnessExercise(
         category: "Creativity",
@@ -149,6 +158,7 @@ class MindfullExerciseProvider extends ChangeNotifier {
         ],
         duration: 10,
         instructionsUrl: "https://example.com/instructions/mindful-drawing",
+        imagePath: "assets/images/mindfull.png",
       ),
     ];
 
