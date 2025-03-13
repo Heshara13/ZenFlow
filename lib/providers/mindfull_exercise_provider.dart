@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
+import 'package:zenflow/services/mindfull_exercise_service.dart';
 
 class MindfullExerciseProvider extends ChangeNotifier {
   List<MindfulnessExercise> _allMindfullExercises = [];
@@ -164,7 +165,6 @@ class MindfullExerciseProvider extends ChangeNotifier {
 
     mindfullExercise = List.from(_allMindfullExercises);
   }
-
   // Method to fetch all the mindfulness exercises
   List<MindfulnessExercise> getMindfullExercise() {
     return mindfullExercise;
@@ -184,19 +184,24 @@ class MindfullExerciseProvider extends ChangeNotifier {
               .toList();
     }
     notifyListeners();
+  }
 
-    //add a new mindfulness exercise
-    void addMindfullExercise(
-      MindfulnessExercise exercise,
-      BuildContext context,
-    ) {
+  //add a new mindfulness exercise
+  void addMindfullExercise(MindfulnessExercise exercise, BuildContext context) {
+    try {
+      _allMindfullExercises.add(exercise);
+      mindfullExercise = List.from(_allMindfullExercises);
+
+      //add the data to hive
       try {
-        _allMindfullExercises.add(exercise);
-        mindfullExercise = List.from(_allMindfullExercises);
+        MindFullExerciseService().addMindFullExercise(exercise, context);
       } catch (e) {
         print(e);
       }
       notifyListeners();
+    } catch (e) {
+      print(e);
     }
+    notifyListeners();
   }
 }
