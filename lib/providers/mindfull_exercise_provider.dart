@@ -184,5 +184,19 @@ class MindfullExerciseProvider extends ChangeNotifier {
               .toList();
     }
     notifyListeners();
+
+    //add a new mindfulness exercise
+    void addMindfullExercise(
+      MindfulnessExercise exercise,
+      BuildContext context,
+    ) {
+      try {
+        _allMindfullExercises.add(exercise);
+        mindfullExercise = List.from(_allMindfullExercises);
+      } catch (e) {
+        print(e);
+      }
+      notifyListeners();
+    }
   }
 }

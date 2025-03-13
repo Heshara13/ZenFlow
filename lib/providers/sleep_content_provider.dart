@@ -91,4 +91,18 @@ class SleepContentProvider extends ChangeNotifier {
 
     sleepExercise = List.from(_allSleepContents);
   }
+
+  // Method to add a new sleep content
+  void addSleepContent(SleepContent sleepContent, BuildContext context) {
+    try {
+      _allSleepContents.add(sleepContent);
+
+      //also update the filtered list
+      sleepExercise.add(sleepContent);
+
+      //also update the Hive box
+    } catch (e) {
+      print(e);
+    }
+  }
 }

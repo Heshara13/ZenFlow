@@ -19,6 +19,10 @@ void main() async {
   Hive.registerAdapter(MindfulnessExerciseAdapter());
   Hive.registerAdapter(SleepContentAdapter());
 
+  await Hive.openBox('meditations');
+  await Hive.openBox('mindfull_exercises');
+  await Hive.openBox('sleep_contents');
+
   runApp(
     MultiProvider(
       providers: [
