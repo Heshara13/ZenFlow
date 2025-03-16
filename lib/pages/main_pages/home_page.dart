@@ -9,6 +9,8 @@ import 'package:zenflow/models/mindfull_exercise_model.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
 import 'package:zenflow/providers/filter_provider.dart';
 import 'package:zenflow/router/router_names.dart';
+import 'package:zenflow/utils/colors.dart';
+import 'package:zenflow/utils/text_styles.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -29,25 +31,55 @@ class HomePage extends StatelessWidget {
         return SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 20)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryPurple,
+                  ),
+                ),
                 const SizedBox(height: 10),
-                Text(category, style: const TextStyle(fontSize: 15)),
+                Text(
+                  category,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primaryGrey,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 Text(description, style: const TextStyle(fontSize: 15)),
                 const SizedBox(height: 20),
                 Text(
-                  videoUrl.isNotEmpty ? videoUrl : 'No video available',
-                  style: const TextStyle(fontSize: 15, color: Colors.blue),
+                  '$duration min',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryGreen,
+                  ),
                 ),
-                Text('$duration min', style: const TextStyle(fontSize: 15)),
                 const SizedBox(height: 20),
                 Row(
                   children: [
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                          AppColors.primaryGreen,
+                        ),
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        shadowColor: WidgetStateProperty.all<Color>(
+                          Colors.transparent,
+                        ),
+                      ),
                       onPressed: () {
                         GoRouter.of(context).push(
                           '/functions',
@@ -64,13 +96,33 @@ class HomePage extends StatelessWidget {
                         //close the bottom sheet
                         Navigator.pop(context);
                       },
-                      child: const Text("Start"),
+                      child: const Text(
+                        "Start",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
+                    const SizedBox(width: 20),
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                          AppColors.primaryGrey,
+                        ),
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        shadowColor: WidgetStateProperty.all<Color>(
+                          Colors.transparent,
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text("Close"),
+                      child: const Text(
+                        "Close",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ],
                 ),
@@ -122,7 +174,7 @@ class HomePage extends StatelessWidget {
               builder: (context, filterData, child) {
                 final completeData = filterData.filteredData;
 
-                //re arrange the data to show in the UI
+                // Rearrange the data to show in the UI
                 completeData.shuffle();
                 return SingleChildScrollView(
                   child: Padding(
@@ -130,47 +182,164 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Home Page", style: TextStyle(fontSize: 20)),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/meditation.png",
+                              width: MediaQuery.of(context).size.width * 0.09,
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                              "Meditator",
+                              style: TextStyle(
+                                fontSize: 29,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primaryPurple,
+                              ),
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 20),
-                        const Text(
+                        Text(
                           "Select a category to start exploring",
-                          style: TextStyle(fontSize: 15),
+                          style: AppTextStyles.subtitleStyle.copyWith(
+                            color: AppColors.primaryDarkBlue,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: AppColors.primaryPurple.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FilterChip(
-                                label: const Text("All"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("All");
-                                },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  FilterChip(
+                                    label: Text(
+                                      "All",
+                                      style: TextStyle(
+                                        color:
+                                            filterData.getSelectedCategory() ==
+                                                    "All"
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                    selected:
+                                        filterData.getSelectedCategory() ==
+                                        "All",
+                                    onSelected: (bool value) {
+                                      filterData.filterData("All");
+                                    },
+                                    showCheckmark: false,
+                                    selectedColor: AppColors.primaryPurple,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      side: BorderSide(
+                                        color: AppColors.primaryPurple
+                                            .withOpacity(0.5),
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  FilterChip(
+                                    label: Text(
+                                      "Mindfulness",
+                                      style: TextStyle(
+                                        color:
+                                            filterData.getSelectedCategory() ==
+                                                    "Mindfulness"
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                    onSelected: (bool value) {
+                                      filterData.filterData("Mindfulness");
+                                    },
+                                    showCheckmark: false,
+                                    selected:
+                                        filterData.getSelectedCategory() ==
+                                        "Mindfulness",
+                                    selectedColor: AppColors.primaryPurple,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      side: BorderSide(
+                                        color: AppColors.primaryPurple
+                                            .withOpacity(0.5),
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  FilterChip(
+                                    label: Text(
+                                      "Meditation",
+                                      style: TextStyle(
+                                        color:
+                                            filterData.getSelectedCategory() ==
+                                                    "Meditation"
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+                                    selected:
+                                        filterData.getSelectedCategory() ==
+                                        "Meditation",
+                                    onSelected: (bool value) {
+                                      filterData.filterData("Meditation");
+                                    },
+                                    showCheckmark: false,
+                                    selectedColor: AppColors.primaryPurple,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      side: BorderSide(
+                                        color: AppColors.primaryPurple
+                                            .withOpacity(0.5),
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  FilterChip(
+                                    label: Text(
+                                      "Sleep Stories",
+                                      style: TextStyle(
+                                        color:
+                                            filterData.getSelectedCategory() ==
+                                                    "Sleep Stories"
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
+                                    ),
+
+                                    //change the color of the selected chip
+                                    showCheckmark: false,
+                                    selected:
+                                        filterData.getSelectedCategory() ==
+                                        "Sleep Stories",
+                                    onSelected: (bool value) {
+                                      filterData.filterData("Sleep Stories");
+                                    },
+                                    selectedColor: AppColors.primaryPurple,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      side: BorderSide(
+                                        color: AppColors.primaryPurple
+                                            .withOpacity(0.5),
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              FilterChip(
-                                label: const Text("Mindfulness"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("Mindfulness");
-                                },
-                              ),
-                              FilterChip(
-                                label: const Text("Meditation"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("Meditation");
-                                },
-                              ),
-                              FilterChip(
-                                label: const Text("Sleep Stories"),
-                                onSelected: (bool value) {
-                                  filterData.filterData("Sleep Stories");
-                                },
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -183,15 +352,6 @@ class HomePage extends StatelessWidget {
                                 completeData.map((data) {
                                   return GestureDetector(
                                     onTap: () {
-                                      openBottomSheet(
-                                        context,
-                                        data.name,
-                                        data.duration,
-                                        data.description,
-                                        data.category,
-                                        data.videoUrl ?? '',
-                                      );
-
                                       //handle the event according to the data type
                                       if (data is MindfulnessExercise) {
                                         handleMindfullnessPressed(
@@ -219,13 +379,13 @@ class HomePage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10),
                                         color:
                                             data is MindfulnessExercise
-                                                ? Colors.blue.shade100
-                                                    .withOpacity(0.3)
+                                                ? AppColors.primaryGreen
+                                                    .withOpacity(1)
                                                 : data is SleepContent
-                                                ? Colors.green.shade100
-                                                    .withOpacity(0.3)
-                                                : Colors.red.shade100
-                                                    .withOpacity(0.3),
+                                                ? AppColors.primaryPurple
+                                                    .withOpacity(1)
+                                                : AppColors.primaryDarkBlue
+                                                    .withOpacity(0.6),
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -234,22 +394,40 @@ class HomePage extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
+                                              data.name,
+                                              style: AppTextStyles.titleStyle
+                                                  .copyWith(
+                                                    color:
+                                                        AppColors.primaryWhite,
+                                                  ),
+                                            ),
+                                            Text(
                                               data.category,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20,
-                                              ),
+                                              style: AppTextStyles.bodyStyle
+                                                  .copyWith(
+                                                    color: AppColors
+                                                        .primaryBlack
+                                                        .withOpacity(0.5),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                             ),
                                             Text(
                                               '${data.duration} min',
-                                              style: const TextStyle(
-                                                color: Colors.black38,
-                                                fontSize: 15,
-                                              ),
+                                              style: AppTextStyles.bodyStyle
+                                                  .copyWith(
+                                                    color: AppColors
+                                                        .primaryBlack
+                                                        .withOpacity(0.5),
+                                                  ),
                                             ),
                                             Text(data.name),
                                             Text(
                                               data.description,
+                                              style: AppTextStyles.bodyStyle
+                                                  .copyWith(
+                                                    color:
+                                                        AppColors.primaryWhite,
+                                                  ),
                                               maxLines:
                                                   (data.description.length / 2)
                                                       .toInt(),
