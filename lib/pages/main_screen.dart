@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MainScreen(),
     );
   }
@@ -35,11 +34,10 @@ class _MainScreenState extends State<MainScreen> {
 
   static const List<Widget> _pages = <Widget>[
     HomePage(),
-    StatsPage(),
-    ProfilePage(),
-    MeditationPage(),
+    MindFullE
     CreateCustomExercise(),
     CustomExercises(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
