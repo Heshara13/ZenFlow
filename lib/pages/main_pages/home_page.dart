@@ -191,6 +191,28 @@ class HomePage extends StatelessWidget {
                                         data.category,
                                         data.videoUrl ?? '',
                                       );
+
+                                      //handle the event according to the data type
+                                      if (data is MindfulnessExercise) {
+                                        handleMindfullnessPressed(
+                                          context,
+                                          data,
+                                        );
+                                      } else if (data is SleepContent) {
+                                        handleSleepStoriesPressed(
+                                          context,
+                                          data,
+                                        );
+                                      } else {
+                                        openBottomSheet(
+                                          context,
+                                          data.name,
+                                          data.duration,
+                                          data.description,
+                                          data.category,
+                                          data.videoUrl ?? '',
+                                        );
+                                      }
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
