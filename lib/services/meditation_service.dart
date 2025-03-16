@@ -4,7 +4,7 @@ import 'package:zenflow/models/meditation_model.dart';
 
 class MeditationService {
   //craete the Box for Hive
-  final _meditationBox = Hive.box('meditations');
+  final _meditationBox = Hive.box('meditations_data');
 
   //add a new meditation
   Future<void> addMeditation(
@@ -13,32 +13,16 @@ class MeditationService {
   ) async {
     try {
       // Get all the meditations, if any
-      final allMeditations = _meditationBox.get("meditations");
+      final dynamic allMeditations = _meditationBox.get("meditations");
 
-      // Check if allMeditations is null or is not a list of maps
-      List<MeditationContent> meditationList = [];
+      List<Map<String, dynamic>> meditationList = [];
       if (allMeditations != null && allMeditations is List) {
-        meditationList =
-            allMeditations.map((item) {
-              if (item is Map<String, dynamic>) {
-                return MeditationContent.fromJson(item);
-              } else {
-                return MeditationContent.fromJson(
-                  Map<String, dynamic>.from(item),
-                );
-              }
-            }).toList();
+        meditationList = List<Map<String, dynamic>>.from(allMeditations);
       }
 
-      // Add the new meditation
-      meditationList.add(meditation);
-
-      // Convert the meditationList back to a List<Map<String, dynamic>> before saving
-      final List<Map<String, dynamic>> meditationListJson =
-          meditationList.map((meditation) => meditation.toJson()).toList();
-
+      meditationList.add(meditation.toJson());
       // Save the new list of meditations
-      await _meditationBox.put("meditations", meditationListJson);
+      await _meditationBox.put("meditations_data", meditationList);
 
       // Show a snackbar
       ScaffoldMessenger.of(context).showSnackBar(
@@ -56,14 +40,20 @@ class MeditationService {
   //get all the meditations
   List<MeditationContent> getMeditations() {
     try {
-      //get all the meditations
-      final dynamic allMeditatios = _meditationBox.get("meditations");
-      final List<MeditationContent> meditationList =
-          allMeditatios
-              .map((meditation) => MeditationContent.fromJson(meditation))
-              .toList();
-      print(meditationList);
-      return meditationList;
+      // Get all the meditations from Hive
+      final dynamic allMeditations = _meditationBox.get("meditations_data");
+
+      if (allMeditations != null && allMeditations is List) {
+        return allMeditations.map((item) {
+          if (item is Map<String, dynamic>) {
+            return MeditationContent.fromJson(item);
+          } else {
+            return MeditationContent.fromJson(Map<String, dynamic>.from(item));
+          }
+        }).toList();
+      } else {
+        return [];
+      }
     } catch (e) {
       print("get meditations error: $e");
       return [];
@@ -71,21 +61,38 @@ class MeditationService {
   }
 
   //delete a meditation
-  Future<void> deleteMeditation(MeditationContent meditation) async {
+  Future<void> deleteMeditation(
+    MeditationContent meditation,
+    BuildContext context,
+  ) async {
     try {
-      //get all the meditations
-      final dynamic allMeditatios = _meditationBox.get("meditations");
-      //convert the dynamic list to a list of MeditationContent
-      final List<MeditationContent> meditationList =
-          allMeditatios
-              .map((meditation) => MeditationContent.fromJson(meditation))
-              .toList();
+      // Get all the meditations, if any
+      final dynamic allMeditations = _meditationBox.get("meditations_data");
 
-      //delete the meditation
-      meditationList.remove(meditation);
-      //save the new meditation
-      await _meditationBox.put("meditations", allMeditatios);
-      print("Meditation deleted");
+      if (allMeditations != null && allMeditations is List) {
+        List<Map<String, dynamic>> meditationList =
+            List<Map<String, dynamic>>.from(allMeditations);
+
+        // Remove the meditation
+        meditationList.removeWhere((item) {
+          MeditationContent currentMeditation = MeditationContent.fromJson(
+            Map<String, dynamic>.from(item),
+          );
+          return currentMeditation.name == meditation.name &&
+              currentMeditation.category == meditation.category;
+        });
+
+        // Save the new list of meditations
+        await _meditationBox.put("meditations_data", meditationList);
+
+        // Show a snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Meditation deleted"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
     } catch (e) {
       print(e);
     }
