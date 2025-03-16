@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:zenflow/pages/main_pages/create_custom_exercise.dart';
 import 'package:zenflow/pages/main_pages/custum_exercises.dart';
 import 'package:zenflow/pages/main_pages/home_page.dart';
-import 'package:zenflow/pages/main_pages/meditation_page.dart';
+import 'package:zenflow/pages/main_pages/mindfull_exercise_page.dart';
 import 'package:zenflow/pages/main_pages/profile_page.dart';
-import 'package:zenflow/pages/main_pages/stats_page.dart';
+import 'package:zenflow/utils/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: const MainScreen(),
-    );
+    return const MaterialApp(title: 'Flutter Demo', home: MainScreen());
   }
 }
 
@@ -34,10 +32,10 @@ class _MainScreenState extends State<MainScreen> {
 
   static const List<Widget> _pages = <Widget>[
     HomePage(),
-    MindFullE
+    MindFullExercisePage(),
     CreateCustomExercise(),
     CustomExercises(),
-    ProfilePage()
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -49,19 +47,86 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Use a transparent background
       body: Center(child: _pages.elementAt(_selectedIndex)),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Mediation'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Create'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Stats'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/home.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 0
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/brain.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 1
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+                height: 25,
+                width: 25,
+              ),
+              label: 'Mediation',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/circle-plus.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 2
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
+              label: 'Create',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/file-plus-2.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 3
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
+              label: 'Stats',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/user-round-cog.svg',
+                colorFilter: ColorFilter.mode(
+                  _selectedIndex == 4
+                      ? AppColors.primaryPurple
+                      : AppColors.primaryGrey,
+                  BlendMode.srcIn,
+                ),
+                semanticsLabel: 'My SVG Image',
+              ),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: AppColors.primaryPurple,
+          unselectedItemColor: AppColors.primaryDarkBlue,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
