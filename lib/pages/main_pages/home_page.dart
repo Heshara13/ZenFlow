@@ -93,6 +93,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  //handle sleep stories pressed
+  void handleSleepStoriesPressed(BuildContext context, SleepContent data) {
+    GoRouter.of(context).pushNamed(
+      RouteNames.sleepStoryTimer,
+      queryParameters: {'sleepContent': jsonEncode(data.toJson())},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
