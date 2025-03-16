@@ -6,7 +6,7 @@ import 'package:zenflow/utils/colors.dart';
 import 'package:zenflow/widgets/reusable/text_input.dart';
 
 class SleepContentForm extends StatefulWidget {
-  const SleepContentForm({super.key});
+  SleepContentForm({super.key});
 
   @override
   State<SleepContentForm> createState() => _SleepContentFormState();
@@ -16,13 +16,9 @@ class _SleepContentFormState extends State<SleepContentForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _category = '';
-
   String _name = '';
-
   String _description = '';
-
   int _duration = 0;
-
   String _audioUrl = '';
 
   @override
