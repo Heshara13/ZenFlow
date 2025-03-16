@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import 'package:zenflow/providers/meditation_provider.dart';
 import 'package:zenflow/providers/mindfull_exercise_provider.dart';
 import 'package:zenflow/providers/sleep_content_provider.dart';
 import 'package:zenflow/router/router.dart';
+import 'package:zenflow/utils/colors.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -43,7 +45,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'zenflow',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        fontFamily: GoogleFonts.lato().fontFamily,
+        scaffoldBackgroundColor: AppColors.primaryWhite,
+      ),
+
       routerConfig: RouterClass().router,
     );
   }
