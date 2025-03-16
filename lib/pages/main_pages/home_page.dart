@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
@@ -6,11 +8,12 @@ import 'package:zenflow/models/functions_model.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
 import 'package:zenflow/providers/filter_provider.dart';
+import 'package:zenflow/router/router_names.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  // Method to open the bottom sheet
+  // handle meditation pressed
   void openBottomSheet(
     BuildContext context,
     final title,
@@ -76,6 +79,17 @@ class HomePage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  //handle mindfullness exercises pressed
+  void handleMindfullnessPressed(
+    BuildContext context,
+    MindfulnessExercise data,
+  ) {
+    GoRouter.of(context).pushNamed(
+      RouteNames.midfullExerciseTimer,
+      queryParameters: {'mindfullExercise': jsonEncode(data.toJson())},
     );
   }
 
