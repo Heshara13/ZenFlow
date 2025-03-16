@@ -12,8 +12,16 @@ class CustomDataProvider extends ChangeNotifier {
   final List<MindfulnessExercise> _mindfulExercises = [];
 
   List<MeditationContent> get meditations => _meditations;
+
   List<SleepContent> get sleepExercises => _sleepExercises;
+
   List<MindfulnessExercise> get mindfulExercises => _mindfulExercises;
+
+  get userCreatedMeditations => null;
+
+  get userCreatedSleepExercises => null;
+
+  get userCreatedMindfullExercises => null;
 
   //Methode to add a new meditation
   void addMeditation(MeditationContent meditation, BuildContext context) {
