@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:zenflow/models/functions_model.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
 import 'package:zenflow/pages/functions_page.dart';
+import 'package:zenflow/pages/main_pages/create_custom_exercise.dart';
 import 'package:zenflow/pages/main_screen.dart';
 import 'package:zenflow/pages/mindfull_exercise_details_page.dart';
 import 'package:zenflow/router/router_names.dart';
@@ -39,6 +40,13 @@ class RouterClass {
           );
 
           return MidfullExerciseDetailsPage(mindfullExercise: mindfullExercise);
+        },
+      ),
+      GoRoute(
+        name: RouteNames.create,
+        path: "/create",
+        builder: (context, state) {
+          return const CreateCustomExercise();
         },
       ),
     ],
