@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
-import 'package:zenflow/providers/sleep_content_provider.dart';
+import 'package:zenflow/providers/custom_data_provider.dart';
 
 class SleepContentForm extends StatelessWidget {
   SleepContentForm({super.key});
@@ -109,7 +109,7 @@ class SleepContentForm extends StatelessWidget {
                     );
 
                     //use the provider to add the new sleep content
-                    Provider.of<SleepContentProvider>(
+                    Provider.of<CustomDataProvider>(
                       context,
                       listen: false,
                     ).addSleepContent(sleepContent, context);

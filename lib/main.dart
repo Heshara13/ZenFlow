@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:zenflow/models/meditation_model.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
+import 'package:zenflow/providers/custom_data_provider.dart';
 import 'package:zenflow/providers/filter_provider.dart';
 import 'package:zenflow/providers/meditation_provider.dart';
 import 'package:zenflow/providers/mindfull_exercise_provider.dart';

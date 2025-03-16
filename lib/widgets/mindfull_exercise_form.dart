@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
-import 'package:zenflow/providers/mindfull_exercise_provider.dart';
+import 'package:zenflow/providers/custom_data_provider.dart';
 
 class MindFullExerciseForm extends StatefulWidget {
   MindFullExerciseForm({super.key});
@@ -175,10 +175,10 @@ class _MindFullExerciseFormState extends State<MindFullExerciseForm> {
               );
 
               //use the provider to add the new mindfull content
-              Provider.of<MindfullExerciseProvider>(
+              Provider.of<CustomDataProvider>(
                 context,
                 listen: false,
-              ).addMindfullExercise(mindFullExercise, context);
+              ).addMindfulExercise(mindFullExercise, context);
             }
           },
           child: const Text('Submit'),

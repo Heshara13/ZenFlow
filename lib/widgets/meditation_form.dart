@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zenflow/models/meditation_model.dart';
-import 'package:zenflow/providers/meditation_provider.dart';
+import 'package:zenflow/providers/custom_data_provider.dart';
 
 class MeditationForm extends StatelessWidget {
   MeditationForm({super.key});
@@ -123,7 +123,7 @@ class MeditationForm extends StatelessWidget {
                     );
 
                     //add the meditation
-                    Provider.of<MeditationProvider>(
+                    Provider.of<CustomDataProvider>(
                       context,
                       listen: false,
                     ).addMeditation(meditation, context);
