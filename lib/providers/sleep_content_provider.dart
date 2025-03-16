@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
-import 'package:zenflow/services/sleep_exercise_service.dart';
 
 class SleepContentProvider extends ChangeNotifier {
   List<SleepContent> _allSleepContents = [];
@@ -91,26 +90,5 @@ class SleepContentProvider extends ChangeNotifier {
     ];
 
     sleepExercise = List.from(_allSleepContents);
-  }
-
-  // Method to add a new sleep content
-  void addSleepContent(SleepContent sleepContent, BuildContext context) {
-    try {
-      _allSleepContents.add(sleepContent);
-
-      //also update the filtered list
-      sleepExercise.add(sleepContent);
-
-      //also update the Hive box
-      try {
-        SleepExerciseService().addSleepExercise(sleepContent, context);
-      } catch (e) {
-        print(e);
-      }
-
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
   }
 }

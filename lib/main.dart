@@ -19,7 +19,7 @@ void main() async {
   Hive.registerAdapter(MindfulnessExerciseAdapter());
   Hive.registerAdapter(SleepContentAdapter());
 
-  await Hive.openBox('meditations');
+  await Hive.openBox('meditations_data');
   await Hive.openBox('mindfull_exercises');
   await Hive.openBox('sleep_contents');
 
@@ -30,6 +30,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => MeditationProvider()),
         ChangeNotifierProvider(create: (context) => SleepContentProvider()),
         ChangeNotifierProvider(create: (context) => FilterdDataprovider()),
+        ChangeNotifierProvider(create: (context) => CustomDataProvider()),
       ],
       child: MyApp(),
     ),
