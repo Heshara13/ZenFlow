@@ -22,6 +22,7 @@ void main() async {
   Hive.registerAdapter(MindfulnessExerciseAdapter());
   Hive.registerAdapter(SleepContentAdapter());
 
+  // Open Hive box
   await Hive.openBox('meditations_data');
   await Hive.openBox('mindfull_exercises');
   await Hive.openBox('sleep_contents');
@@ -35,12 +36,14 @@ void main() async {
         ChangeNotifierProvider(create: (context) => FilterdDataprovider()),
         ChangeNotifierProvider(create: (context) => CustomDataProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
