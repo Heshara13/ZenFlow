@@ -191,7 +191,7 @@ class HomePage extends StatelessWidget {
                             ),
                             const SizedBox(width: 10),
                             const Text(
-                              "Meditator",
+                              "Zenflow",
                               style: TextStyle(
                                 fontSize: 29,
                                 fontWeight: FontWeight.bold,
