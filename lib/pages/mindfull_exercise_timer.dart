@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zenflow/models/mindfull_exercise_model.dart';
+import 'package:zenflow/utils/colors.dart';
+import 'package:zenflow/utils/text_styles.dart';
 
 class MindFullExerciseTimer extends StatelessWidget {
   final MindfulnessExercise mindfullExercise;
@@ -20,14 +22,11 @@ class MindFullExerciseTimer extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: AppColors.primaryGreen,
               ),
             ),
             const SizedBox(height: 10),
-            Text(
-              mindfullExercise.name,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
+            Text(mindfullExercise.name, style: AppTextStyles.titleStyle),
             const SizedBox(height: 10),
             Text(
               'Duration: ${mindfullExercise.duration} minutes',
@@ -47,9 +46,21 @@ class MindFullExerciseTimer extends StatelessWidget {
             ...mindfullExercise.instructions.map(
               (instruction) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Text(
-                  '- $instruction',
-                  style: const TextStyle(fontSize: 18),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryGreen.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: AppColors.primaryGreen.withOpacity(0.5),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      instruction,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ),
                 ),
               ),
             ),

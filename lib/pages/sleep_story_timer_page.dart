@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:zenflow/models/sleep_content_model.dart';
+import 'package:zenflow/utils/colors.dart';
 
 class SleepStoryTimerPage extends StatefulWidget {
   final SleepContent sleepContent;
@@ -86,7 +87,7 @@ class _SleepStoryTimerPageState extends State<SleepStoryTimerPage> {
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: AppColors.primaryPurple,
               ),
             ),
             const SizedBox(height: 10),
@@ -97,7 +98,7 @@ class _SleepStoryTimerPageState extends State<SleepStoryTimerPage> {
             const SizedBox(height: 10),
             Text(
               'Duration: ${widget.sleepContent.duration} minutes',
-              style: const TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
             Text(
@@ -105,24 +106,9 @@ class _SleepStoryTimerPageState extends State<SleepStoryTimerPage> {
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Audio URL:',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
+
             const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                // Implement your logic to play the audio
-              },
-              child: Text(
-                widget.sleepContent.audioUrl,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
+
             const SizedBox(height: 20),
             Center(
               child: Text(
